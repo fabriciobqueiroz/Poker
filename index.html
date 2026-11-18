@@ -228,15 +228,15 @@ function rProf(){
   const mine=P.find(p=>p.id===uid),pid=prof||(mine&&mine.id),p=P.find(x=>x.id===pid);
   const tgt=(pid&&pid!==uid&&isAd&&p)?p:mine;
   const form=uid?`<div class="card"><b>${tgt?(tgt.id===uid?"Meus dados":"Editar dados de "+esc(tgt.name)):"Criar meu perfil"}</b><div style="display:grid;gap:8px;margin-top:8px"><input type="text" id="myname" placeholder="Nome completo" value="${esc(tgt?tgt.name:"")}"><input type="text" id="mynick" placeholder="Apelido (opcional)" value="${esc(tgt?tgt.nick||"":"")}"><input type="text" id="myphone" placeholder="WhatsApp (opcional)" value="${esc(tgt?tgt.phone||"":"")}"><input type="text" id="mypix" placeholder="Chave Pix (para receber)" value="${esc(tgt?tgt.pix||"":"")}"><label class="mut" for="myphoto">Foto do perfil</label><input type="file" accept="image/*" id="myphoto"><button class="pri" id="regme" data-tid="${tgt?tgt.id:uid}">${tgt?"Salvar dados":"Criar meu perfil"}</button></div></div>`:'<div class="card mut">Entre na sua conta do Claude para criar seu perfil.</div>';
-  if(!p){$("#app").innerHTML=(mine?`<h1 class="big">Perfil</h1>`:`<h1 class="big">Bem-vindo! 👋</h1><div class="sub" style="margin-bottom:10px">Cadastre-se para entrar no ranking do grupo. Seu acesso começa como <b>Jogador</b>; o dono do app pode torná-lo administrador.</div>`)+form+'<button class="full" id="lgout" style="margin:12px 0">Sair da conta</button>';return}
+  if(!p){$("#app").innerHTML=(mine?`<h1 class="big">Perfil</h1>`:`<h1 class="big">Bem-vindo! 👋</h1><div class="sub" style="margin-bottom:10px">Cadastre-se para entrar no ranking do grupo. Seu acesso começa como <b>Jogador</b>; o dono do app pode torná-lo administrador.</div>`)+form+'<button class="full" id="lgout" style="margin:12px 0">Sair da conta</button><div class="mut" style="text-align:center;font-size:12px">Versão 3 · gravação rápida</div>';return}
   const s=pstats(pid),pos=allStats().find(x=>x.p.id===pid).pos,box=(l,v)=>`<div class="stat"><small>${l}</small><b>${v}</b></div>`;
-  $("#app").innerHTML='<button class="full" id="lgout" style="margin:12px 0">Sair da conta</button>'+(tgt?"":form)+`<div class="card prof"><div class="ban"></div>${av(p,96)}<h1 class="big c">${esc(p.name)}</h1>
+  $("#app").innerHTML='<button class="full" id="lgout" style="margin:12px 0">Sair da conta</button><div class="mut" style="text-align:center;font-size:12px">Versão 3 · gravação rápida</div>'+(tgt?"":form)+`<div class="card prof"><div class="ban"></div>${av(p,96)}<h1 class="big c">${esc(p.name)}</h1>
   <div class="c">${p.nick?`<span class="chip">${esc(p.nick)}</span>`:""}${pid===uid?'<span class="chip" style="background:#fff1de;color:#a35a00">Você</span>':""}${AD[pid]?'<span class="chip">Administrador</span>':""}${p.id===uid&&isOw?'<span class="chip">Dono</span>':""}${p.phone?`<span class="chip">📱 ${esc(p.phone)}</span>`:""}${p.pix?`<span class="chip">Pix: ${esc(p.pix)}</span>`:""}</div>
   ${msel()}<div class="s3"><div><b>${s.n?pos+"º":"—"}</b><small>Ranking</small></div><div><b>${s.n}</b><small>Jogos</small></div><div><b>${s.w}</b><small>Vitórias</small></div></div>
   <div class="row" style="justify-content:center">${box("Saldo total",sg(s.tot))}${box("Média por jogo",s.n?sg(s.tot/s.n):"—")}${box("Melhor noite",s.best===null?"—":sg(s.best))}${box("Pior noite",s.worst===null?"—":sg(s.worst))}${box("Buy-ins",s.buys)}${box("Investido",brl(s.inv))}${box("Retorno (ROI)",s.n?(s.roi>0?"+":"")+s.roi.toFixed(0)+"%":"—")}${box("Aproveitamento",s.n?Math.round(s.w/s.n*100)+"%":"—")}${box("Maior sequência de vitórias",s.bs)}</div>
   ${isOw&&pid!==uid?`<button class="pri full" data-mkadm="${pid}">${AD[pid]?"Remover administrador":"Tornar administrador"}</button>`:""}${pid!==uid&&mine?'<button class="pri full" data-prof="">Voltar ao meu perfil</button>':""}</div>
   ${s.hist.length?`<h2 class="ttl">📈 Evolução do saldo</h2><div class="card">${chart([{c:"#0994dc",v:s.hist.map(x=>x.cum)}],s.hist.map(x=>x.d))}</div>`:""}
-  ${s.hist.length?`<h2 class="ttl">Histórico</h2><div class="card scroll"><table><tr><th>Data</th><th>Buy-ins</th><th>Resultado</th><th>Acumulado</th></tr>${[...s.hist].reverse().map(x=>`<tr><td>${fd(x.d)}</td><td>${x.buys}</td><td>${sg(x.res)}</td><td>${sg(x.cum)}</td></tr>`).join("")}</table></div>`:""}`+(tgt?form:"")+'<button class="full" id="lgout" style="margin-top:12px">Sair da conta</button>';
+  ${s.hist.length?`<h2 class="ttl">Histórico</h2><div class="card scroll"><table><tr><th>Data</th><th>Buy-ins</th><th>Resultado</th><th>Acumulado</th></tr>${[...s.hist].reverse().map(x=>`<tr><td>${fd(x.d)}</td><td>${x.buys}</td><td>${sg(x.res)}</td><td>${sg(x.cum)}</td></tr>`).join("")}</table></div>`:""}`+(tgt?form:"")+'<button class="full" id="lgout" style="margin-top:12px">Sair da conta</button><div class="mut" style="text-align:center;font-size:12px">Versão 3 · gravação rápida</div>';
 }
 
 /* ---------- Eventos ---------- */
@@ -284,14 +284,18 @@ document.addEventListener("change",async e=>{
 
 const SB_URL="https://bxciuuaincnzdvbrguta.supabase.co",SB_KEY="sb_publishable_RLsJvzIKFvEmXeqzjCK94g_OBEv-c7b";
 const sb=supabase.createClient(SB_URL,SB_KEY);
-function mkdb(){const T="docs",doc=(c,id)=>({
-  async set(d){const{error}=await sb.from(T).upsert({collection:c,id,data:d});if(error)throw error},
-  async update(d){const{data:r,error:e}=await sb.from(T).select("data").eq("collection",c).eq("id",id).single();if(e)throw e;const{error}=await sb.from(T).upsert({collection:c,id,data:{...r.data,...d}});if(error)throw error},
-  async delete(){const{error}=await sb.from(T).delete().eq("collection",c).eq("id",id);if(error)throw error}});
+function mkdb(){const T="docs",cache={},subs={},lastK={},pend={},dirty={};
+ const emit=c=>{const s=subs[c];if(!s)return;const rows=Object.entries(cache[c]||{}),k=JSON.stringify(rows);if(k===lastK[c])return;lastK[c]=k;s.cb({docs:rows.map(([id,d])=>({id,data:()=>d}))})};
+ const reload=async c=>{if(pend[c]){dirty[c]=1;return}const{data,error}=await sb.from(T).select("id,data").eq("collection",c);if(error){subs[c]&&subs[c].err&&subs[c].err(error);return}if(pend[c]){dirty[c]=1;return}cache[c]={};data.forEach(r=>cache[c][r.id]=r.data);emit(c)};
+ const fl={},lt={};
+ const push=(c,id,d,del)=>{const k=c+"/"+id;lt[k]={d,del};if(fl[k])return fl[k];pend[c]=(pend[c]||0)+1;fl[k]=(async()=>{try{while(lt[k]){const w=lt[k];lt[k]=null;const{error}=w.del?await sb.from(T).delete().eq("collection",c).eq("id",id):await sb.from(T).upsert({collection:c,id,data:w.d});if(error)throw error}}catch(e){dirty[c]=1;toast("Não foi possível salvar. Verifique a conexão.")}finally{delete fl[k];pend[c]--;if(!pend[c]&&dirty[c]){dirty[c]=0;reload(c)}}})();return fl[k]};
+ const doc=(c,id)=>({
+  async set(d){(cache[c]=cache[c]||{})[id]=d;emit(c);return push(c,id,d)},
+  async update(d){let cur=(cache[c]||{})[id];if(!cur){const{data,error}=await sb.from(T).select("data").eq("collection",c).eq("id",id).single();if(error)throw error;cur=data.data}return doc(c,id).set({...cur,...d})},
+  async delete(){if(cache[c])delete cache[c][id];emit(c);return push(c,id,null,true)}});
  return{collection:c=>({doc:id=>doc(c,id),
   async add(d){const id=Math.random().toString(36).slice(2,12)+Date.now().toString(36);await doc(c,id).set(d);return{id}},
-  onSnapshot(cb,err){let last="";const load=async()=>{const{data,error}=await sb.from(T).select("id,data").eq("collection",c);if(error){err&&err(error);return}const k=JSON.stringify(data);if(k===last)return;last=k;cb({docs:data.map(r=>({id:r.id,data:()=>r.data}))})};load();
-   sb.channel("rt-"+c).on("postgres_changes",{event:"*",schema:"public",table:T,filter:"collection=eq."+c},load).subscribe();setInterval(load,15000)}})}}
+  onSnapshot(cb,err){subs[c]={cb,err};reload(c);sb.channel("rt-"+c).on("postgres_changes",{event:"*",schema:"public",table:T,filter:"collection=eq."+c},()=>reload(c)).subscribe();setInterval(()=>reload(c),30000)}})}}
 function loginView(){$("#nav").innerHTML="";$("#fab").hidden=true;$("#app").innerHTML=`<h1 class="big">Home Game Poker ♠️</h1><div class="sub">Entre ou crie sua conta para participar.</div><div class="card" style="display:grid;gap:8px"><input type="email" id="lgem" placeholder="E-mail" autocomplete="email"><input type="password" id="lgpw" placeholder="Senha (mín. 6 caracteres)" autocomplete="current-password"><button class="pri" id="lgin">Entrar</button><button id="lgup">Criar conta</button></div>`}
 (async()=>{
   render();
